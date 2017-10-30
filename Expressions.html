@@ -30,13 +30,20 @@ ng-pristine
 	<camel-case-here></camel-case-here> <!--Uses '-'s here, but camelcase in script, weird -->
 	<br>
 	<label>Changes background if not filled in: <input ng-model = "cssTrick" required>
+	<!-- make list of all elements in listItems (initilized in controller) -->
+	<ul>
+		<li ng-repeat="x in listItems">
+			{{x.num + ": "+ x.name}}
+		</li>
+	</ul>
 </div>
 
 <script>
 	var app = angular.module("myApp", []);
-	app.controller("myCtrl", function($scope) {
+	app.controller("myCtrl", function($scope) { <!-- $scope is application object (owner of variables/functions) -->
 		$scope.name = "bob";
 		$scope.myCol = "pink";
+		$scope.listItems = [{num:1, name:"one"},{num:2, name:"two"},{num:3, name:"three"}];
 	});
 	
 	app.directive("camelCaseHere",function(){ <!-- usable as a element, attribute, comment?!? and class, with restrict used for class and comment-->
