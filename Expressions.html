@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<style>
+input.ng-invalid { <!-- triggers on things like a required input field not being filled -->
+	background-color: red;
+}
+<!-- more ng-model directives for forms
+ng-empty
+ng-not-empty
+ng-touched
+ng-untouched
+ng-valid
+ng-invalid
+ng-dirty
+ng-pending
+ng-pristine
+-->
+</style>
 <body>
-<!-- data-ng-app is html valid as opposed to ng-app -->
-<div data-ng-app="">
-  <p>My first expression: {{ 5 + 5 }}</p> <!-- anything inside double curly braces is expression -->
+<!-- data-ng-app is html valid as opposed to ng-app, ng-app is the root element for AngularJS -->
+<div ng-app="myApp" ng-controller="myCtrl">
+	<p>My first expression: {{ 5 + 5 }}</p> <!-- anything inside double curly braces is expression -->
+	<br>
+	<p>Name: <input type = "text" ng-model = "name"></p>
+	<p>{{name}}</p>
+	<br>
+	<label>Enter a color: <input style = "background-color:{{myCol}}" ng-model = "myCol" value = "{{myCol}}">
+	<br>
+	<camel-case-here></camel-case-here> <!--Uses '-'s here, but camelcase in script, weird -->
+	<br>
+	<label>Changes background if not filled in: <input ng-model = "cssTrick" required>
 </div>
+
+<script>
+	var app = angular.module("myApp", []);
+	app.controller("myCtrl", function($scope) {
+		$scope.name = "bob";
+		$scope.myCol = "pink";
+	});
+	
+	app.directive("camelCaseHere",function(){ <!-- usable as a element, attribute, comment?!? and class, with restrict used for class and comment-->
+		return{
+			template: "<h2>Made automatically via directive</h2>"
+		};
+	});
+</script>
+
 
 </body>
 </html>
